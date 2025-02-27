@@ -60,15 +60,47 @@ public class ProductController {
     }
 
     // TODO: API to search products by name
-
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProductsByName(@RequestParam("name") String name){
+        List<Product> products= productService.searchProductsByName(name);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<>(products,HttpStatus.OK);
+        }
+    }
 
     // TODO: API to filter products by category
-
+    @GetMapping("/filter/category")
+    public ResponseEntity<List<Product>> filterProductsByCategory(@RequestParam("category") String category){
+        List<Product> products= productService.filterProductsByCategory(category);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<>(products,HttpStatus.OK);
+        }
+    }
 
     // TODO: API to filter products by price range
-
+    @GetMapping("/filter/price")
+    public ResponseEntity<List<Product>> filterProductsByPrice(@RequestParam("minPrice") Integer minPrice, @RequestParam("maxPrice") Integer maxPrice){
+        List<Product> products= productService.filterProductsByPrice(minPrice,maxPrice);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<>(products,HttpStatus.OK);
+        }
+    }
 
     // TODO: API to filter products by stock quantity range
-
+    @GetMapping("/filter/stock")
+    public ResponseEntity<List<Product>> filterProductsByStock(@RequestParam("minStock") Integer minStock, @RequestParam("maxStock") Integer maxStock){
+        List<Product> products= productService.filterProductsByStock(minStock,maxStock);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<>(products,HttpStatus.OK);
+        }
+    }
 
 }
